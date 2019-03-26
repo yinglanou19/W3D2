@@ -97,7 +97,17 @@ class Question
     QuestionLike.num_likes_for_question_id(id)
   end
 
-
+  def self.most_liked(n)
+    data = QuestionDBConnection.instance.execute(<<-SQL, n)
+      SELECT *
+      FROM question_likes
+      JOIN questions ON question_likes.question_id = questions.id 
+      GROUP BY questions.id
+      ORDER BY COUNT(*) DESC
+      LIMIT ?
+      SQL
+      data.map { |datum| Question.new(datum) }
+  end
 
 end
 
@@ -176,6 +186,12 @@ class User
     QuestionLike.liked_questions_for_user_id(id)
   end
 
+  def average_karma
+    # numbers of likes for each question by user -> question_id
+    # total number of questions -> questions table count * by author_id
+
+  
+  end
 
 end
 

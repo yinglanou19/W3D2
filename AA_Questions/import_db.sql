@@ -29,7 +29,7 @@ CREATE TABLE questions (
 
 
 CREATE TABLE question_follows (
-  -- id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   user_id INTEGER NOT NULL,
   question_id INTEGER NOT NULL
 );
@@ -68,7 +68,8 @@ INSERT INTO
   question_follows(user_id,question_id)
 VALUES
   (1,1),
-  (2,2);
+  (2,2),
+  (1,2);
 
 INSERT INTO
   replies(parent_id, question_id, user_id,body)
